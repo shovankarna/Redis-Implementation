@@ -1,0 +1,49 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: catalog-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/catalog_db
+    username: admin
+    password: admin_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # Externalized Redis properties for Lettuce Pooling
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: ${REDIS_TIMEOUT:2000ms}
+      lettuce:
+        pool:
+          max-active: ${REDIS_MAX_ACTIVE:16}  # Maximum number of concurrent connections
+          max-idle: ${REDIS_MAX_IDLE:8} # Keep 8 connections alive in the background ready to go
+          min-idle: ${REDIS_MIN_IDLE:2} # Never drop below 2 active background connections
+          max-wait: ${REDIS_MAX_WAIT:-1ms} # Wait indefinitely if all connections are busy
+
+# Externalized Cache TTL Custom Configurations
+app:
+  cache:
+    product:
+      ttl-minutes: ${CACHE_TTL_MINUTES:60} # Why TTLs? If we don't expire data, Redis will run out of memory (OOM).
+
+      # Why Jitter? To prevent Cache Avalanche. If 1,000 products expire at exactly 60 minutes,
+      # 1,000 requests will hit the DB simultaneously. Jitter adds a random 0-120 seconds to the TTL.
+      jitter-seconds: ${CACHE_JITTER_SECONDS:120}
+
+      # Why Null Value TTL? To prevent Cache Penetration. If a hacker queries for SKU "99999" repeatedly,
+      # it will always miss the cache and hit the DB. We cache the "null" result for a short time to block them.
+      null-value-ttl-minutes: ${CACHE_NULL_TTL:5}
+  ratelimit:
+    capacity: ${RATE_LIMIT_CAPACITY:10}
+    refill-rate: ${RATE_LIMIT_REFILL_RATE:1}

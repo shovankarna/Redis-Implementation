@@ -1,0 +1,18 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: notification-service
+
+  # Externalized Redis properties for Notification Service
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: ${REDIS_TIMEOUT:2000ms}
+
+app:
+  redis:
+    pubsub:
+      alerts-channel: "live-alerts"
