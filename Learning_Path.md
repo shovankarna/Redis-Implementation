@@ -8,7 +8,7 @@ This document outlines the step-by-step flow to implement and test the complete 
 1.  **[COMPLETED]** `RedisEnterpriseConfig.java`: Configure Lettuce connection pooling and JSON serializers.
 2.  **[COMPLETED]** `RedisCacheConfig.java`: Configure Spring's `RedisCacheManager` with TTLs to prevent memory exhaustion and enable statistics.
 3.  **[COMPLETED]** `ProductCatalogService.java`: Implement the Cache-Aside pattern manually using `@Cacheable`, `@CachePut`, or `RedisTemplate` directly.
-4.  **[PENDING]** `RateLimiterService.java`: Implement a Token Bucket rate limiter using a Redis Lua script to protect the API from spam.
+4.  **[SKIPPED]** `RateLimiterService.java`: Implement a Token Bucket rate limiter using a Redis Lua script to protect the API from spam.
 5.  **TESTING PHASE 1**: 
     *   Start Docker Compose (PostgreSQL & Redis).
     *   Run `catalog-service`.
@@ -20,9 +20,9 @@ This document outlines the step-by-step flow to implement and test the complete 
 ## Phase 2: Order Service (Event Sourcing with Redis Streams)
 **Focus:** Asynchronous event processing, Producer/Consumer, Consumer Groups, and At-Least-Once Delivery.
 
-1.  **[PENDING]** `RedisStreamConfig.java`: Configure the `StreamMessageListenerContainer` and programmatically create the `order-processing-group` consumer group.
-2.  **[PENDING]** `OrderProcessingService.java`: Implement the Producer to push new order events (as `MapRecord`) to the Redis Stream.
-3.  **[PENDING]** `OrderEventConsumer.java`: Implement the Consumer to listen for stream events, process them, and crucially, acknowledge (`XACK`) the messages.
+1.  **[COMPLETED]** `RedisStreamConfig.java`: Configure the `StreamMessageListenerContainer` and programmatically create the `order-processing-group` consumer group.
+2.  **[COMPLETED]** `OrderProcessingService.java`: Implement the Producer to push new order events (as `MapRecord`) to the Redis Stream.
+3.  **[COMPLETED]** `OrderEventConsumer.java`: Implement the Consumer to listen for stream events, process them, and crucially, acknowledge (`XACK`) the messages.
 4.  **TESTING PHASE 2**:
     *   Run `order-service` alongside `catalog-service`.
     *   Submit an order via the API.
