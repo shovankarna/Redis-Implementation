@@ -7,6 +7,8 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
+import com.ecommerce.notification.messaging.NotificationSubscriber;
+
 @Configuration
 public class RedisPubSubConfig {
 
@@ -20,15 +22,23 @@ public class RedisPubSubConfig {
      * Set up the structural framework for a RedisMessageListenerContainer.
      * 
      * 1. This container requires a RedisConnectionFactory.
-     * 2. It must bind a `ChannelTopic` (named via the `app.redis.pubsub.alerts-channel` property, e.g., "live-alerts")
-     *    to a specific message listener adapter (like your NotificationSubscriber).
+     * 2. It must bind a `ChannelTopic` (named via the
+     * `app.redis.pubsub.alerts-channel` property, e.g., "live-alerts")
+     * to a specific message listener adapter (like your NotificationSubscriber).
      * 
      * @param connectionFactory the Redis connection factory
      * @return null until implemented manually
      */
     @Bean
-    public RedisMessageListenerContainer redisMessageListenerContainer(RedisConnectionFactory connectionFactory) {
-        return null; // TODO: Implement Manually
+    public RedisMessageListenerContainer redisMessageListenerContainer(RedisConnectionFactory connectionFactory,
+            NotificationSubscriber subscriber) {
+
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+
+        // Bind the subscriber to the specific channel topic
+        container.addMessageListener(subscriber, channelTopic());
+        return container;
     }
 
     @Bean
