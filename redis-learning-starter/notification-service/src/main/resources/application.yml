@@ -1,0 +1,23 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: notification-service
+
+  # Externalized Redis properties for Notification Service
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: ${REDIS_TIMEOUT:2000ms}
+
+app:
+  redis:
+    pubsub:
+      alerts-channel: "live-alerts"
+    streams:
+      order-events-topic: "mystream:order-events"
+      payment-events-topic: "mystream:payment-events" ## Just to show multiple events consumption
+      user-events-topic: "mystream:user-events" ## Just to show multiple events consumption
+      consumer-group: "notification-processing-group"

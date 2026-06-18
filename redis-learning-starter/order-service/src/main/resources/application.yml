@@ -1,0 +1,44 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/order_db
+    username: admin
+    password: admin_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # --- REDIS CONFIGURATION ---
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: ${REDIS_TIMEOUT:2000ms}
+      # Note: We do not strictly need connection pooling here if we are only pushing 
+      # to streams asynchronously using standard non-blocking commands.
+
+# --- CUSTOM APPLICATION PROPERTIES ---
+app:
+  redis:
+    streams:
+      # Why a specific topic? This is the name of the log file (stream) in Redis.
+      order-events-topic: "mystream:order-events"
+      
+      # Why Consumer Groups? This ensures that if we run 3 instances of order-service,
+      # an order event is only processed by ONE of them, not all three.
+      consumer-group: "order-processing-group"
+      
+      # Why MAX-LEN? Streams are append-only logs. If left unchecked, they will consume 
+      # 100% of your RAM. This tells Redis to silently delete the oldest messages once 
+      # the stream hits 10,000 items.
+      max-len: 10000

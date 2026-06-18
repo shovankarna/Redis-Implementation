@@ -4,14 +4,6 @@ Welcome to the **Enterprise E-Commerce Engine**, a master-tier microservices pla
 
 This project moves beyond simple caching to explore event-driven architectures, distributed rate limiting, and highly scalable message brokering.
 
-## 🎓 Learning Playground (Starter Template)
-
-If you are here to learn and implement these Redis patterns from scratch, we have created a dedicated blank-slate environment for you! 
-
-Navigate to the **`redis-learning-starter`** directory. In this folder:
-* All Redis logic has been intentionally stripped out and replaced with `// TODO: Implement Manually` skeletons.
-* **`Learning_Path.md`**: Use this step-by-step curriculum to track your progress as you implement each phase.
-* **`AI_AGENT_GUIDE.md`**: If you are using an AI Coding Agent (like GitHub Copilot or Google Gemini) to help you code, point the agent to this file so it understands the rules of the playground and doesn't auto-complete the answers for you!
 ## Architecture Overview
 
 The system is composed of three logically isolated, domain-driven microservices interacting over an isolated Docker Compose mesh network.
