@@ -31,7 +31,7 @@ A central communications hub designed to react to real-time events across the ec
   * **Real-time Pub/Sub:** Fire-and-forget broadcasting for transient alerts (`live-alerts` channel).
   * **Stream Fan-Out:** Acts as an independent consumer group reading from multiple enterprise streams (e.g., `order-events`, `payment-events`, `user-events`) simultaneously without blocking the primary business processors.
 
-## 🚀 Infrastructure & Setup
+## Infrastructure & Setup
 
 The entire environment is orchestrated via Docker Compose, ensuring zero local dependency headaches.
 
