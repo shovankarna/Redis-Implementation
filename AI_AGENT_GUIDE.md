@@ -15,7 +15,7 @@ These skeletons contain detailed Javadocs with instructions and a `// TODO: Impl
 ## Architecture
 1. **Catalog-Service**: Read-heavy domain for product inventories. Uses PostgreSQL (`catalog_db`). Targeted Redis concepts: Caching, Lettuce Connection Pooling, TTLs, Cache-Aside pattern, Cache Penetration/Avalanche mitigation, Token Bucket Rate Limiting (Lua).
 2. **Order-Service**: Write-heavy domain for processing orders. Uses PostgreSQL (`order_db`). Targeted Redis concepts: Redis Streams (Producer/Consumer), Consumer Groups, XACK, PEL (Pending Entries List), `MAXLEN` log trimming.
-3. **Notification-Service**: Real-time worker for alerts. Targeted Redis concepts: Redis Pub/Sub, `ChannelTopic`, Fire-and-forget broadcasting.
+3. **Notification-Service**: Real-time worker for alerts. Targeted Redis concepts: Redis Pub/Sub, `ChannelTopic`, Fire-and-forget broadcasting. **Also demonstrates Redis Streams Fan-Out** by consuming from multiple streams (`order-events`, `payment-events`, `user-events`) via an independent consumer group.
 
 ## Infrastructure
 The system uses Docker Compose to provision:
