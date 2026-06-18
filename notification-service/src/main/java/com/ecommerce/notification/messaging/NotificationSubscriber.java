@@ -31,7 +31,18 @@ public class NotificationSubscriber implements MessageListener {
         // Extract raw bytes and convert to a String
         String alertMessage = new String(message.getBody());
 
+        System.out.println("⏳ PUB/SUB: Received message, starting processing...");
+
+        try {
+            // Simulated processing delay (e.g., sending an actual email/SMS)
+            // You can manually change this delay to see how it affects the receipt time!
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Processing interrupted!");
+        }
+
         // Handle the live alert
-        System.out.println("🚨 LIVE ALERT RECEIVED: " + alertMessage);
+        System.out.println("🚨 PUB/SUB RECEIVE: LIVE ALERT PROCESSED: " + alertMessage);
     }
 }

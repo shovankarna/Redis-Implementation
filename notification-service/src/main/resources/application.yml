@@ -16,3 +16,6 @@ app:
   redis:
     pubsub:
       alerts-channel: "live-alerts"
+    streams:
+      order-events-topic: "mystream:order-events"
+      consumer-group: "notification-processing-group"

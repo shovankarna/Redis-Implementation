@@ -77,6 +77,7 @@ public class ProductCatalogService {
             }
 
             if (cachedValue instanceof Product) {
+                System.out.println("✅ CACHE HIT: Returning Product from Redis for SKU: " + sku);
                 return (Product) cachedValue;
             } else {
                 throw new ResourceNotFoundException("Product not found with SKU: " + sku);
@@ -86,6 +87,7 @@ public class ProductCatalogService {
         // 3. Cache Miss - fetch from DB
         Product product;
         try {
+            System.out.println("❌ CACHE MISS: Fetching Product from Database for SKU: " + sku);
             product = getProductBySkuFromDb(sku);
 
             // Apply jitter to TTL to prevent cache avalanche

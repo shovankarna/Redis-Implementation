@@ -47,7 +47,7 @@ public class OrderEventConsumer implements StreamListener<String, MapRecord<Stri
         String recordId = message.getId().getValue();
         Map<String, String> payload = message.getValue();
 
-        System.out.println("Picked up Order Event from Stream: " + payload.get("orderNumber"));
+        System.out.println("📥 ORDER STREAM RECEIVE: Picked up Order Event from Stream: " + payload.get("orderNumber"));
 
         try {
             // 1. Process the event (Simulate inventory deduction, payment processing, etc.)
@@ -59,7 +59,8 @@ public class OrderEventConsumer implements StreamListener<String, MapRecord<Stri
             // consumer group
             redisTemplate.opsForStream().acknowledge(streamKey, consumerGroup, recordId);
 
-            System.out.println("Successfully processed and Acknowledged (XACK) order: " + payload.get("orderNumber"));
+            System.out.println("✅ ORDER STREAM XACK: Successfully processed and Acknowledged order: "
+                    + payload.get("orderNumber"));
         } catch (Exception e) {
             System.err.println("Failed to process order event: " + e.getMessage());
             // Because we didn't XACK, the message remains in the PEL and can be re-claimed

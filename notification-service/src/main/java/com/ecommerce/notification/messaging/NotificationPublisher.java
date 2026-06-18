@@ -36,6 +36,7 @@ public class NotificationPublisher {
      */
 
     public void broadcastSystemAlert(String message) {
+        System.out.println("📣 PUB/SUB PUBLISH: Broadcasting alert to channel '" + alertsChannel + "': " + message);
         // Publishes the message to the Redis Pub/Sub channel
         stringRedisTemplate.convertAndSend(alertsChannel, message);
     }

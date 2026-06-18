@@ -86,12 +86,14 @@ public class OrderProcessingService {
                 .ofMap(eventPayLoad)
                 .withStreamKey(streamKey);
 
+        System.out.println(
+                "📤 STREAM PUBLISH: Published Order Event to Stream for Order Number: " + order.getOrderNumber());
+
         // 3. Publish to Redis Stream
         redisTemplate.opsForStream().add(record);
 
         // 4. Manual Log Trimming to prevent memory exhaustion (OOM)
         redisTemplate.opsForStream().trim(streamKey, maxLen);
 
-        System.out.println("Published Order Event to Stream: " + order.getOrderNumber());
     }
 }
