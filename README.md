@@ -4,7 +4,7 @@ Welcome to the **Enterprise E-Commerce Engine**, a master-tier microservices pla
 
 This project moves beyond simple caching to explore event-driven architectures, distributed rate limiting, and highly scalable message brokering.
 
-## 🏗 Architecture Overview
+## Architecture Overview
 
 The system is composed of three logically isolated, domain-driven microservices interacting over an isolated Docker Compose mesh network.
 
@@ -59,7 +59,7 @@ The entire environment is orchestrated via Docker Compose, ensuring zero local d
    * Order Service (`8082`)
    * Notification Service (`8083`)
 
-## 🛠 Testing the Architecture
+## Testing the Architecture
 
 You can test the complex, asynchronous flows using simple REST calls and the Redis CLI.
 
