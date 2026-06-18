@@ -25,7 +25,7 @@ public class UserStreamConsumer implements StreamListener<String, MapRecord<Stri
         String recordId = message.getId().getValue();
         Map<String, String> payload = message.getValue();
 
-        System.out.println("👤 USER STREAM RECEIVE: Picked up User Event from Stream for User ID: " + payload.get("userId"));
+        System.out.println("USER STREAM RECEIVE: Picked up User Event from Stream for User ID: " + payload.get("userId"));
 
         try {
             // Simulated processing delay for sending a Welcome Email
@@ -34,7 +34,7 @@ public class UserStreamConsumer implements StreamListener<String, MapRecord<Stri
             // Acknowledge (XACK) so it's removed from PEL
             redisTemplate.opsForStream().acknowledge(streamKey, consumerGroup, recordId);
 
-            System.out.println("✅ USER STREAM XACK: Successfully acknowledged user: " + payload.get("userId"));
+            System.out.println("USER STREAM XACK: Successfully acknowledged user: " + payload.get("userId"));
         } catch (Exception e) {
             System.err.println("Failed to process user stream event: " + e.getMessage());
         }

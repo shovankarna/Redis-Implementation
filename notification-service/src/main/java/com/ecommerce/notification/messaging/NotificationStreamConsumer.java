@@ -25,7 +25,8 @@ public class NotificationStreamConsumer implements StreamListener<String, MapRec
         String recordId = message.getId().getValue();
         Map<String, String> payload = message.getValue();
 
-        System.out.println("📥 NOTIFICATION STREAM RECEIVE: Picked up Order Event from Stream: " + payload.get("orderNumber"));
+        System.out.println(
+                "NOTIFICATION STREAM RECEIVE: Picked up Order Event from Stream: " + payload.get("orderNumber"));
 
         try {
             // Simulated processing delay for Notification
@@ -34,7 +35,8 @@ public class NotificationStreamConsumer implements StreamListener<String, MapRec
             // Acknowledge (XACK) so it's removed from PEL for THIS consumer group
             redisTemplate.opsForStream().acknowledge(streamKey, consumerGroup, recordId);
 
-            System.out.println("✅ NOTIFICATION STREAM XACK: Successfully acknowledged order: " + payload.get("orderNumber"));
+            System.out.println(
+                    "NOTIFICATION STREAM XACK: Successfully acknowledged order: " + payload.get("orderNumber"));
         } catch (Exception e) {
             System.err.println("Failed to process stream event: " + e.getMessage());
         }

@@ -25,7 +25,7 @@ public class PaymentStreamConsumer implements StreamListener<String, MapRecord<S
         String recordId = message.getId().getValue();
         Map<String, String> payload = message.getValue();
 
-        System.out.println("💳 PAYMENT STREAM RECEIVE: Picked up Payment Event from Stream for Payment ID: " + payload.get("paymentId"));
+        System.out.println("PAYMENT STREAM RECEIVE: Picked up Payment Event from Stream for Payment ID: " + payload.get("paymentId"));
 
         try {
             // Simulated processing delay for sending a payment receipt email
@@ -34,7 +34,7 @@ public class PaymentStreamConsumer implements StreamListener<String, MapRecord<S
             // Acknowledge (XACK) so it's removed from PEL
             redisTemplate.opsForStream().acknowledge(streamKey, consumerGroup, recordId);
 
-            System.out.println("✅ PAYMENT STREAM XACK: Successfully acknowledged payment: " + payload.get("paymentId"));
+            System.out.println("PAYMENT STREAM XACK: Successfully acknowledged payment: " + payload.get("paymentId"));
         } catch (Exception e) {
             System.err.println("Failed to process payment stream event: " + e.getMessage());
         }

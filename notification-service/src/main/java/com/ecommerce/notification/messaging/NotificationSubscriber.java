@@ -31,7 +31,7 @@ public class NotificationSubscriber implements MessageListener {
         // Extract raw bytes and convert to a String
         String alertMessage = new String(message.getBody());
 
-        System.out.println("⏳ PUB/SUB: Received message, starting processing...");
+        System.out.println("PUB/SUB: Received message, starting processing...");
 
         try {
             // Simulated processing delay (e.g., sending an actual email/SMS)
@@ -43,6 +43,6 @@ public class NotificationSubscriber implements MessageListener {
         }
 
         // Handle the live alert
-        System.out.println("🚨 PUB/SUB RECEIVE: LIVE ALERT PROCESSED: " + alertMessage);
+        System.out.println("PUB/SUB RECEIVE: LIVE ALERT PROCESSED: " + alertMessage);
     }
 }

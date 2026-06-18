@@ -87,7 +87,7 @@ public class OrderProcessingService {
                 .withStreamKey(streamKey);
 
         System.out.println(
-                "📤 STREAM PUBLISH: Published Order Event to Stream for Order Number: " + order.getOrderNumber());
+                "STREAM PUBLISH: Published Order Event to Stream for Order Number: " + order.getOrderNumber());
 
         // 3. Publish to Redis Stream
         redisTemplate.opsForStream().add(record);
