@@ -18,4 +18,6 @@ app:
       alerts-channel: "live-alerts"
     streams:
       order-events-topic: "mystream:order-events"
+      payment-events-topic: "mystream:payment-events" ## Just to show multiple events consumption
+      user-events-topic: "mystream:user-events" ## Just to show multiple events consumption
       consumer-group: "notification-processing-group"
